@@ -51,7 +51,7 @@ public class Repository implements RepositoryInterface {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
             for (User f : friends) {
                 if(f.getUsername()!=u.getUsername()) {
-                    u.addFriend(f);
+                    u.addFriend(f.getUsername());
                 }
             }
         }
@@ -82,7 +82,7 @@ public class Repository implements RepositoryInterface {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
             for (User f : friends) {
                 if(f.getUsername()!=u.getUsername()) {
-                    u.addFriend(f);
+                    u.addFriend(f.getUsername());
                 }
             }
         }
@@ -119,7 +119,7 @@ public class Repository implements RepositoryInterface {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
             for (User f : friends) {
                 if(f.getUsername()!=u.getUsername()) {
-                    u.addFriend(f);
+                    u.addFriend(f.getUsername());
                 }
             }
         }
@@ -149,6 +149,15 @@ public class Repository implements RepositoryInterface {
                 i.addFilter(f);
             }
         }
+
+        // Find all tagged users associated with each item
+        SQL="select username from User where id in (select userid from tags where itemid = ?)";
+        for (ScheduleItem i : items) {
+            List<String> tagged = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
+            for (String t : tagged) {
+                i.addTaggeduser(t);
+            }
+        }
         return items;
     }
 
@@ -165,6 +174,16 @@ public class Repository implements RepositoryInterface {
                 i.addFilter(f);
             }
         }
+
+        // Find all tagged users associated with each item
+        SQL="select username from User where id in (select userid from tags where itemid = ?)";
+        for (ScheduleItem i : items) {
+            List<String> tagged = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
+            for (String t : tagged) {
+                i.addTaggeduser(t);
+            }
+        }
+
         return items;
     }
 
@@ -222,11 +241,10 @@ public class Repository implements RepositoryInterface {
 
     // Edits item in database (never used in this version)
     public void editItem(int itemId, String title, int userId, LocalDateTime startTime, LocalDateTime endTime, int weekNo, int year,
-                         String location, String color, String description, List<User> taggedUsers, List<String> filters){
+                         String location, String color, String description, List<String> taggedUsers, List<String> filters){
         String SQL="update \"scheduleitem\" set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);
-
     }
 
     // Adds filter to an item
@@ -253,7 +271,7 @@ public class Repository implements RepositoryInterface {
         SQL = "select * from \"user\" where id in (select userid from members where groupid=?)";
         List<User> members = jdbcTemplate.query(SQL, new Object[]{grpId}, new UserMapper());
         for (User u : members) {
-            group.addMember(u);
+            group.addMember(u.getUsername());
         }
         return group;
     }
@@ -268,15 +286,15 @@ public class Repository implements RepositoryInterface {
     }
 
     // Insert a group into database
-    public int createGroup(String grpName, List<User> members){
+    public int createGroup(String grpName, List<String> members){
         String SQL="insert into \"group\" (name) values (?)";
         jdbcTemplate.update(SQL, grpName);
 
         int grpId = findGroupByName(grpName);
 
         SQL="insert into Members (groupid, userid) values (?,?)";
-        for (User u : members) {
-            jdbcTemplate.update(SQL, new Object[]{grpId, u.getUserId()});
+        for (String u : members) {
+            jdbcTemplate.update(SQL, new Object[]{grpId, u});
         }
         return grpId;
     }

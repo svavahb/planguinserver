@@ -12,7 +12,7 @@ public class ScheduleItem {
     private int userId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private List<User> taggedUsers = new ArrayList<>();  // Never used in this version
+    private List<String> taggedUsers = new ArrayList<>();  // Never used in this version
     private int weekNo;
     private int year;
     private String location;
@@ -42,10 +42,10 @@ public class ScheduleItem {
     public LocalDateTime getEndTime(){return endTime;}
     public void setEndTime(LocalDateTime endTime){this.endTime = endTime;}
 
-    public void setTaggedUsers(List<User> taggedUsers){this.taggedUsers = taggedUsers;}
-    public List<User> getTaggedUsers(){return taggedUsers;}
-    public void addTaggeduser(User user){taggedUsers.add(user);}
-    public void removeTaggedUser(User user){taggedUsers.remove(user);}
+    public void setTaggedUsers(List<String> taggedUsers){this.taggedUsers = taggedUsers;}
+    public List<String> getTaggedUsers(){return taggedUsers;}
+    public void addTaggeduser(String user){taggedUsers.add(user);}
+    public void removeTaggedUser(String user){taggedUsers.remove(user);}
 
     public int getWeekNo(){return weekNo;}
     public void setWeekNo(int weekNo){this.weekNo = weekNo;}
