@@ -124,9 +124,12 @@ public class ScheduleController {
 
         Schedule scheduleByFilters = new Schedule();
         scheduleByFilters.setUser(user);
-        for ( ScheduleItem s : scheduleItemList) {
+        scheduleByFilters.setItems(scheduleItemList);
+
+        /*for ( ScheduleItem s : scheduleItemList) {
             scheduleByFilters.addItem(s);
-        }
+        }*/
+
         System.out.println(scheduleByFilters.getItems());
 
         return scheduleByFilters;

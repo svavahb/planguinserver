@@ -11,6 +11,7 @@ public class Schedule {
     private static List<ScheduleItem> items = new ArrayList<>();
 
     public List<ScheduleItem> getItems(){return items;}
+    public void setItems(List<ScheduleItem> items) {this.items = items;}
     public static void addItem(ScheduleItem item){items.add(item);}
     public void removeItem(ScheduleItem item){items.remove(item);}
 
