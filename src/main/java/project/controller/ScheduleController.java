@@ -126,11 +126,7 @@ public class ScheduleController {
         scheduleByFilters.setUser(user);
         scheduleByFilters.setItems(scheduleItemList);
 
-        /*for ( ScheduleItem s : scheduleItemList) {
-            scheduleByFilters.addItem(s);
-        }*/
-
-        System.out.println(scheduleByFilters.getItems());
+        System.out.println(scheduleItemList);
 
         return scheduleByFilters;
     }
