@@ -151,7 +151,7 @@ public class Repository implements RepositoryInterface {
         }
 
         // Find all tagged users associated with each item
-        SQL="select username from User where id in (select userid from tags where itemid = ?)";
+        SQL="select username from \"user\" where id in (select userid from tags where itemid = ?)";
         for (ScheduleItem i : items) {
             List<String> tagged = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
             for (String t : tagged) {
