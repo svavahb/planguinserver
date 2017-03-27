@@ -30,11 +30,12 @@ public class CompareService {
     // Generates a list of all time slots occupied by a schedule item from any user in a group
     public List<ScheduleItem> compareScheduleGroup(int grpId, int weekNo, int year){
         Group group = repository.findGroup(grpId);
-        List<User> members = group.getMembers();
+        List<String> members = group.getMembers();
         // Get a list of all schedule items for all users in group
         List<ScheduleItem> items = new ArrayList<>();
-        for (User u:members) {
-            List<ScheduleItem> item = repository.findItemsByUserWeek(u.getUserId(),weekNo,year);
+        for (String u:members) {
+            User user = repository.findUsersByName(u);
+            List<ScheduleItem> item = repository.findItemsByUserWeek(user.getUserId(),weekNo,year);
             for (ScheduleItem s:item) {
                 items.add(s);
             }
