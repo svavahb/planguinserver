@@ -40,21 +40,21 @@ public class SearchService {
         User user1 = repository.findUserById(userId1);
         User user2 = repository.findUserById(userId2);
 
-        user1.addFriend(user2);
-        user2.addFriend(user1);
+        user1.addFriend(user2.getUsername());
+        user2.addFriend(user1.getUsername());
 
         return true;
     }
 
     // Check if user1 and user2 are friends
     public boolean checkIfFriend(User user1, User user2) {
-        for (User u : user1.getFriends()) {
-            if (u.getUserId() == user2.getUserId()) {
+        for (String u : user1.getFriends()) {
+            if (u == user2.getUsername()) {
                 return true;
             }
         }
-        for (User u : user2.getFriends()) {
-            if (u.getUserId() == user1.getUserId()) {
+        for (String u : user2.getFriends()) {
+            if (u == user1.getUsername()) {
                 return true;
             }
         }
