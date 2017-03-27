@@ -32,7 +32,7 @@ public class FriendController {
 
     // Method for getting all friends of a user
     @RequestMapping(value="getFriends/{loggedInUser}")
-    public List<User> getFriends(@PathVariable String loggedInUser) {
+    public List<String> getFriends(@PathVariable String loggedInUser) {
         // Get logged in user
         User user = scheduleService.findUserByUsername(loggedInUser);
 
