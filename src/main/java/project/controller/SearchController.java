@@ -109,7 +109,7 @@ public class SearchController {
 
         // Add the user to the group
         searchService.addGroupMemeber(grpId, userId);
-        group.addMember(user);
+        group.addMember(user.getUsername());
         
         return new ResponseEntity(HttpStatus.OK);
     }
