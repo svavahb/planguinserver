@@ -42,7 +42,7 @@ public class ScheduleService {
     // Edit schedule item (never used in this version)
     public ScheduleItem editScheduleItem(int itemId, String title, int userId, LocalDateTime startTime,
                                                 LocalDateTime endTime, int weekNo, int year, String location, String color,
-                                         String description, List<User> taggedUsers, List<String> filters){
+                                         String description, List<String> taggedUsers, List<String> filters){
         repository.editItem(itemId, title, userId, startTime, endTime, weekNo, year, location, color, description,
                 taggedUsers, filters);
         ScheduleItem itemEdit = new ScheduleItem();
