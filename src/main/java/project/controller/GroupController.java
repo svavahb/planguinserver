@@ -48,8 +48,8 @@ public class GroupController {
     public boolean createGroup(@PathVariable String loggedInUser, @PathVariable String grpName) {
         // Get logged in user and info
         User user = scheduleService.findUserByUsername(loggedInUser);
-        List<User> members = new ArrayList<>();
-        members.add(user);
+        List<String> members = new ArrayList<>();
+        members.add(user.getUsername());
 
         // If a group with the same name already exists, reload page with error
         if(scheduleService.createGroup(grpName, members)) {

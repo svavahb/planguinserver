@@ -70,7 +70,7 @@ public class ScheduleService {
 
     // Creates a schedule item
     public ScheduleItem createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
-                                   List<User> taggedUsers, int weekNo, int year, String location,String color,
+                                   List<String> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, String filter){
         int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);
         ScheduleItem item = new ScheduleItem();
@@ -125,7 +125,7 @@ public class ScheduleService {
     }
 
     // Create a group. Returns true if successful, false otherwise
-    public boolean createGroup(String name, List<User> members) {
+    public boolean createGroup(String name, List<String> members) {
         // If a group is found by same name, return false
         if (repository.findGroupByName(name)!=-1) return false;
         repository.createGroup(name, members);
