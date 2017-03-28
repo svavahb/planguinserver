@@ -1,6 +1,7 @@
 package project.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class LoginController {
     }
 
     // Post method for logging in user
-    @PostMapping(value="/login")
+    @PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean LogInPost(@RequestBody User LogIn) {
         // Attempt login, return the result
         return securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
