@@ -49,9 +49,15 @@ public class LoginController {
 
     // Post method for logging in user
     @PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean LogInPost(@RequestBody User LogIn) {
+    public User LogInPost(@RequestBody User LogIn) {
         // Attempt login, return the result
-        return securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
+        User user = new User();
+        if (securityService.autologin(LogIn.getUsername(), LogIn.getPassword())) {
+            user.setUsername("true");
+        }
+        else user.setUsername("false");
+
+        return user;
     }
 
     // Post method for checking whether a username exists
