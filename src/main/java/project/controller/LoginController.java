@@ -50,6 +50,7 @@ public class LoginController {
     // Post method for logging in user
     @PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean LogInPost(@RequestBody User LogIn) {
+        System.out.println(LogIn);
         // Attempt login, return the result
         return securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
     }
