@@ -66,7 +66,7 @@ public class LoginController {
         User user = searchService.findByName(username);
         System.out.println(user);
         System.out.println(user.getUsername());
-        if (!user.getUsername().equals(null)) {
+        if (user.getUsername()!=null) {
             user.setUsername("EXISTS");
             return user;
         }
