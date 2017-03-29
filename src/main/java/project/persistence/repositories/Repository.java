@@ -98,7 +98,7 @@ public class Repository implements RepositoryInterface {
         }
 
         if(users.size()==0) return new User();
-        // Return onlt the first user found (should only be one, usernames are validated to be unique on sign up
+        // Return only the first user found (should only be one, usernames are validated to be unique on sign up
         if(users.size()>=1) return users.get(0);
         return null;
     }
