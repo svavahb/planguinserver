@@ -62,12 +62,14 @@ public class LoginController {
 
     // Post method for checking whether a username exists
     @RequestMapping(value="/usernameExists/{username}")
-    public boolean checkUsernamePost(@PathVariable String username) {
+    public User checkUsernamePost(@PathVariable String username) {
         User user = searchService.findByName(username);
-        if (user.getUsername()==null) {
-            return false;
+        if (!user.getUsername().isEmpty()) {
+            user.setUsername("EXISTS");
+            return user;
         }
-        else return true;
+        user.setUsername("OK");
+        return user;
     }
 
 }
