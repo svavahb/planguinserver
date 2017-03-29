@@ -53,7 +53,7 @@ public class LoginController {
         // Attempt login, return the result
         User user = new User();
         if (securityService.autologin(LogIn.getUsername(), LogIn.getPassword())) {
-            user.setUsername("true");
+            user.setUsername(LogIn.getUsername());
         }
         else user.setUsername("false");
 
