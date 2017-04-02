@@ -46,25 +46,23 @@ public class GroupController {
 
     // Method for creating a group
     @RequestMapping(value="/createGroup/{loggedInUser}/{grpName}")
-    public JSONObject createGroup(@PathVariable String loggedInUser, @PathVariable String grpName) {
+    public User createGroup(@PathVariable String loggedInUser, @PathVariable String grpName) {
         // Get logged in user and info
         User user = scheduleService.findUserByUsername(loggedInUser);
         List<String> members = new ArrayList<>();
         members.add(user.getUsername());
 
-        JSONObject json = new JSONObject();
-
         // If a group with the same name already exists, reload page with error
         if(!scheduleService.createGroup(grpName, members)) {
-            json.put("success", false);
-            return json;
+            user.setUsername("false");
+            return user;
         }
 
         user.addGroup(searchService.findGroup(grpName));
 
-        json.put("success", true);
+        user.setUsername("true");
 
-        return json;
+        return user;
     }
 
     // Method for deleting a group
