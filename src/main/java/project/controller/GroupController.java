@@ -1,5 +1,6 @@
 package project.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,20 +46,25 @@ public class GroupController {
 
     // Method for creating a group
     @RequestMapping(value="/createGroup/{loggedInUser}/{grpName}")
-    public boolean createGroup(@PathVariable String loggedInUser, @PathVariable String grpName) {
+    public JSONObject createGroup(@PathVariable String loggedInUser, @PathVariable String grpName) {
         // Get logged in user and info
         User user = scheduleService.findUserByUsername(loggedInUser);
         List<String> members = new ArrayList<>();
         members.add(user.getUsername());
 
+        JSONObject json = new JSONObject();
+
         // If a group with the same name already exists, reload page with error
-        if(scheduleService.createGroup(grpName, members)) {
-            return false;
+        if(!scheduleService.createGroup(grpName, members)) {
+            json.put("success", false);
+            return json;
         }
 
         user.addGroup(searchService.findGroup(grpName));
 
-        return true;
+        json.put("success", true);
+
+        return json;
     }
 
     // Method for deleting a group
