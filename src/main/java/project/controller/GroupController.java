@@ -53,7 +53,7 @@ public class GroupController {
         members.add(user.getUsername());
 
         // If a group with the same name already exists, reload page with error
-        if(!scheduleService.createGroup(grpName, members)) {
+        if(!scheduleService.createGroup(grpName)) {
             user.setUsername("false");
             return user;
         }

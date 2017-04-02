@@ -286,16 +286,16 @@ public class Repository implements RepositoryInterface {
     }
 
     // Insert a group into database
-    public int createGroup(String grpName, List<String> members){
+    public int createGroup(String grpName){
         String SQL="insert into \"group\" (name) values (?)";
         jdbcTemplate.update(SQL, grpName);
 
         int grpId = findGroupByName(grpName);
 
-        SQL="insert into Members (groupid, userid) values (?,?)";
+        /*SQL="insert into Members (groupid, userid) values (?,?)";
         for (String u : members) {
             jdbcTemplate.update(SQL, new Object[]{grpId, u});
-        }
+        }*/
         return grpId;
     }
 

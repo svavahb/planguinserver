@@ -36,7 +36,7 @@ public interface RepositoryInterface {
 
     Group findGroup(int grpId);
 
-    int createGroup(String grpName, List<String> members);
+    int createGroup(String grpName);
 
     void deleteGroup(int grpId);
 

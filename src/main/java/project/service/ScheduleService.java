@@ -125,10 +125,10 @@ public class ScheduleService {
     }
 
     // Create a group. Returns true if successful, false otherwise
-    public boolean createGroup(String name, List<String> members) {
+    public boolean createGroup(String name) {
         // If a group is found by same name, return false
         if (repository.findGroupByName(name)!=-1) return false;
-        repository.createGroup(name, members);
+        repository.createGroup(name);
         return true;
     }
 
