@@ -80,8 +80,9 @@ public class ScheduleController {
     //@PostMapping(value = "/home")
     public Schedule insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
         // Find current week no and year
-        int yearNow = LocalDateTime.now().getYear();
-        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        //int yearNow = LocalDateTime.now().getYear();
+
+        //int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
 
         // Get logged in user and info
         //int userId = scheduleItem.getUserId();
