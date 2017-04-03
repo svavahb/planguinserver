@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.*;
+import project.persistence.repositories.Repository;
 import project.service.ScheduleService;
 import project.service.SearchService;
 import project.validator.ItemValidator;
@@ -75,16 +76,18 @@ public class ScheduleController {
     }
 
     // Post method for inserting an item into the logged in user's schedule
-    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public Schedule insertItemPost(@RequestBody ScheduleItem scheduleItem) {
+    public Schedule insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
         // Find current week no and year
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
 
         // Get logged in user and info
-        int userId = scheduleItem.getUserId();
-        User tmpUser = searchService.findByUserId(userId);
+        //int userId = scheduleItem.getUserId();
+        User tmpUser= scheduleService.findUserByUsername(loggedInUser);
+        int userId = tmpUser.getUserId();
+        //User tmpUser = searchService.findByUserId(userId);
 
         // Find week no and year of the new item
         int year = scheduleService.findYear(scheduleItem.getdate());
