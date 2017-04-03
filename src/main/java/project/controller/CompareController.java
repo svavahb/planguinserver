@@ -44,7 +44,7 @@ public class CompareController {
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
 
         // Get comparison list of sheduleItems
-        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), 48, 2016);
+        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), weekNow, yearNow);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
 
