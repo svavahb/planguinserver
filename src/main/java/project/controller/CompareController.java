@@ -30,18 +30,21 @@ public class CompareController {
     }
 
     // Show comparison of schedules between logged in user and selected friend
-    @RequestMapping(value="/compareFriends/{loggedInUser}/{friendId}")
-    public Schedule compareSchedulePost(@PathVariable String loggedInUser, @PathVariable int friendId){
+    @RequestMapping(value="/compareFriends/{loggedInUser}/{friendname}")
+    public Schedule compareSchedulePost(@PathVariable String loggedInUser, @PathVariable String friendname){
 
         // Get logged in user and necessary info
         User user = compareService.findUserByName(loggedInUser);
+
+        // Get the friend
+        User friend = compareService.findUserByName(friendname);
 
         // Find current week no and year
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
 
         // Get comparison list of sheduleItems
-        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friendId, 48, 2016);
+        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), 48, 2016);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
 
@@ -52,11 +55,14 @@ public class CompareController {
     }
 
     // Get comparison of schedules in group
-    @RequestMapping(value="/compareGroup/{loggedInUser}/{grpId}")
-    public Schedule compareGroupSchedulePost(@PathVariable String loggedInUser, @PathVariable int grpId){
+    @RequestMapping(value="/compareGroup/{loggedInUser}/{grpName}")
+    public Schedule compareGroupSchedulePost(@PathVariable String loggedInUser, @PathVariable String grpName){
 
         // Get logged in user and info
         User user = compareService.findUserByName(loggedInUser);
+
+        // Get the group id
+        int grpId = compareService.findGroupId(grpName);
 
         // FInd current week no and year
         int yearNow = LocalDateTime.now().getYear();

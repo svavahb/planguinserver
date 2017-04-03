@@ -62,6 +62,12 @@ public class CompareService {
         return user;
     }
 
+    // Find a group by group name
+    public int findGroupId(String grpName){
+        int grpId = repository.findGroupByName(grpName);
+        return grpId;
+    }
+
     // Find week no of LDT
     public int findWeekNo(LocalDateTime LDT){
         TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
