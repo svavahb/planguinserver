@@ -47,10 +47,8 @@ public class CompareController {
         List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), weekNow, yearNow);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
+        schedule.setItems(scheduleItems);
 
-        for (ScheduleItem s : scheduleItems) {
-            schedule.addItem(s);
-        }
         return schedule;
     }
 
@@ -72,10 +70,8 @@ public class CompareController {
         List<ScheduleItem> groupSchedule = compareService.compareScheduleGroup(grpId, weekNow, yearNow);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
+        schedule.setItems(groupSchedule);
 
-        for (ScheduleItem s : groupSchedule) {
-            schedule.addItem(s);
-        }
         return schedule;
     }
 
