@@ -100,7 +100,7 @@ public class ScheduleController {
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
 
         // Find scheduleItems for this user
-        List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userId, weekNow, yearNow);
+        //List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userId, weekNow, yearNow);
 
         Schedule scheduleByFilters = new Schedule();
         scheduleByFilters.setUser(tmpUser);
