@@ -78,7 +78,7 @@ public class ScheduleController {
     // Post method for inserting an item into the logged in user's schedule
     @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public Schedule insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
+    public void insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
         // Find current week no and year
         //int yearNow = LocalDateTime.now().getYear();
 
@@ -101,14 +101,14 @@ public class ScheduleController {
 
         // Find scheduleItems for this user
         //List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userId, weekNow, yearNow);
-
+/*
         Schedule scheduleByFilters = new Schedule();
         scheduleByFilters.setUser(tmpUser);
         for ( ScheduleItem s : scheduleItemList) {
             scheduleByFilters.addItem(s);
         }
-
-        return scheduleByFilters;
+*/
+        //return scheduleByFilters;
     }
 
     // Get base home page
