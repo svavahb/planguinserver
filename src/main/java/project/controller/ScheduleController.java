@@ -75,7 +75,7 @@ public class ScheduleController {
     }
 
     // Post method for inserting an item into the logged in user's schedule
-    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    @RequestMapping(value = "/createItem", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
     public Schedule insertItemPost(@RequestBody ScheduleItem scheduleItem) {
         // Find current week no and year
