@@ -32,8 +32,8 @@ public class ScheduleService {
     }
 
     // Get schedule items by useris, week no and year
-    public List<ScheduleItem> scheduleItems(int userId, int weekNo, int yearNo){
-        return repository.findItemsByUserWeek(userId, weekNo, yearNo);
+    public List<ScheduleItem> scheduleItems(int userId, int month, int year){
+        return repository.findItemsByUserWeek(userId, month, year);
     }
 
     // Get items by userid, week no, year and filter
@@ -79,6 +79,7 @@ public class ScheduleService {
     public void createItem(String title, int userId, Date startTime, Date endTime,
                                    List<String> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, String filter){
+
         // Create LocalDateTime variales to insert into database correctly
         LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
         LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());

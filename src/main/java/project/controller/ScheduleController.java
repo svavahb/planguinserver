@@ -101,19 +101,15 @@ public class ScheduleController {
     }
 
     // Get base home page
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public Schedule scheduleGet(@RequestParam String loggedInUser) {
+    @RequestMapping(value = "/home/{month}/{year}", method = RequestMethod.GET)
+    public Schedule scheduleGet(@RequestParam String loggedInUser, @PathVariable int month, @PathVariable int year) {
 
         // Get logged in user and info
         User user = scheduleService.findUserByUsername(loggedInUser);
         int userid= user.getUserId();
 
-        // Find the current week no and year
-        int yearNow = LocalDateTime.now().getYear();
-        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-
         // Find scheduleItems for this user
-        List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userid, weekNow, yearNow);
+        List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userid, month, year);
 
         Schedule scheduleByFilters = new Schedule();
         scheduleByFilters.setUser(user);

@@ -139,9 +139,9 @@ public class Repository implements RepositoryInterface {
     }
 
     // Find all items by userid, week no and year
-    public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year){
-        String SQL = "select * from \"scheduleItem\" where userid = ? and \"weekNo\" = ? and year=?;";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
+    public List<ScheduleItem> findItemsByUserWeek(int userId, int month, int year){
+        String SQL = "select * from \"scheduleItem\" where userid = ? and \"MONTH(startTime)\" = ? and year=?;";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, month, year}, new ItemMapper());
 
         // Find all filters associated with each item
         SQL="select name from Filters where itemId=?";
@@ -225,10 +225,6 @@ public class Repository implements RepositoryInterface {
                 "values (?,?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
-        /* Find newly inserted item's id. Causes an error when user accidentally resends info in http request (so two items exist with same info)
-        SQL="select id from \"scheduleItem\" where  title = ? and userid= ? and \"startTime\" = ? and \"endTime\" = ? and \"weekNo\" = ? and year = ? and location = ? and color = ? and description = ?";
-        int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{title, userId,  Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),weekNo,year,location,color,description}, Integer.class);
-        return itemid;*/
     }
 
     // Deletes item from database by id
