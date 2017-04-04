@@ -101,7 +101,7 @@ public class SearchController {
     }
 
     // Add a user to a certain group
-    @RequestMapping(value="/addToGroup/{grpName}/{username}", method = RequestMethod.POST)
+    @RequestMapping(value="/addToGroup/{grpName}/{username}")
     public ResponseEntity addToGroup(@PathVariable String grpName, @PathVariable String username) {
         // Find the group and the user
         Group group = searchService.findGroup(grpName);
