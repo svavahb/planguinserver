@@ -6,6 +6,7 @@ import project.persistence.entities.Group;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.List;
@@ -222,6 +223,7 @@ public class Repository implements RepositoryInterface {
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
+        System.out.println("timestamp: "+ Timestamp.valueOf(startTime));
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
         /* Find newly inserted item's id. Causes an error when user accidentally resends info in http request (so two items exist with same info)
