@@ -2,6 +2,7 @@ package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.*;
@@ -76,7 +77,7 @@ public class ScheduleController {
     }
 
     // Post method for inserting an item into the logged in user's schedule
-    @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST)
+    @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     //@PostMapping(value = "/home")
     public User insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
         // Get logged in user and info
