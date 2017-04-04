@@ -78,7 +78,7 @@ public class ScheduleController {
     // Post method for inserting an item into the logged in user's schedule
     @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public void insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
+    public ResponseEntity insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
         // Get logged in user and info
         User tmpUser= scheduleService.findUserByUsername(loggedInUser);
         int userId = tmpUser.getUserId();
@@ -94,6 +94,8 @@ public class ScheduleController {
         scheduleService.createItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     // Get base home page
