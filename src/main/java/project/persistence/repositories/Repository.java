@@ -218,16 +218,16 @@ public class Repository implements RepositoryInterface {
     }
 
     // Insert item into database
-    public int createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
+    public void createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
-        // Find newly inserted item's id. Causes an error when user accidentally resends info in http request (so two items exist with same info)
+        /* Find newly inserted item's id. Causes an error when user accidentally resends info in http request (so two items exist with same info)
         SQL="select id from \"scheduleItem\" where  title = ? and userid= ? and \"startTime\" = ? and \"endTime\" = ? and \"weekNo\" = ? and year = ? and location = ? and color = ? and description = ?";
         int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{title, userId,  Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),weekNo,year,location,color,description}, Integer.class);
-        return itemid;
+        return itemid;*/
     }
 
     // Deletes item from database by id

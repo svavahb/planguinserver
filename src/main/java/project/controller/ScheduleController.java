@@ -79,16 +79,9 @@ public class ScheduleController {
     @RequestMapping(value = "/createItem/{loggedInUser}", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
     public void insertItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
-        // Find current week no and year
-        //int yearNow = LocalDateTime.now().getYear();
-
-        //int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-
         // Get logged in user and info
-        //int userId = scheduleItem.getUserId();
         User tmpUser= scheduleService.findUserByUsername(loggedInUser);
         int userId = tmpUser.getUserId();
-        //User tmpUser = searchService.findByUserId(userId);
 
         // Find week no and year of the new item
         int year = scheduleItem.getStartTime().getYear();
@@ -98,20 +91,9 @@ public class ScheduleController {
         int weekNo = scheduleService.findWeekNo(start);
 
         // Create the new item
-         scheduleService.createItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
+        scheduleService.createItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
-
-        // Find scheduleItems for this user
-        //List<ScheduleItem> scheduleItemList = scheduleService.scheduleItems(userId, weekNow, yearNow);
-/*
-        Schedule scheduleByFilters = new Schedule();
-        scheduleByFilters.setUser(tmpUser);
-        for ( ScheduleItem s : scheduleItemList) {
-            scheduleByFilters.addItem(s);
-        }
-*/
-        //return scheduleByFilters;
     }
 
     // Get base home page
