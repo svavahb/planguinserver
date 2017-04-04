@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import project.persistence.entities.Group;
 import project.persistence.entities.Schedule;
 import project.persistence.entities.User;
 import project.service.ScheduleService;
 import project.service.SearchService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +39,26 @@ public class FriendController {
         User user = scheduleService.findUserByUsername(loggedInUser);
 
         return user.getFriends();
+    }
+
+    // Method for getting all friends of a user
+    @RequestMapping(value="getFriendsNotInGroup/{loggedInUser}/{groupname}")
+    public List<String> getFriendsNotInGroup(@PathVariable String loggedInUser, @PathVariable String groupname) {
+        User user = scheduleService.findUserByUsername(loggedInUser);
+        List<String> friends = user.getFriends();
+
+        Group group = searchService.findGroup(groupname);
+        List<String> members = group.getMembers();
+
+        List<String> friendsNotInGroup = new ArrayList<>();
+
+        for(int i=0; i<friends.size(); i++) {
+            if(!members.contains(friends.get(i))) {
+                friendsNotInGroup.add(friends.get(i));
+            }
+        }
+
+        return friendsNotInGroup;
     }
 
     // Method for removing a user from the logged in user's friend list
