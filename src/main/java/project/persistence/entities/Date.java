@@ -11,6 +11,10 @@ public class Date {
     private int hour;
     private int minute;
 
+    public Date() {
+        // Default constructor
+    }
+
     public Date(int year, int month, int dayOfMonth, int hour, int minute) {
         this.year = year;
         this.month = month;
