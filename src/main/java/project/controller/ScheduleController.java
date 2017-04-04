@@ -91,7 +91,7 @@ public class ScheduleController {
         //User tmpUser = searchService.findByUserId(userId);
 
         // Find week no and year of the new item
-        int year = scheduleService.findYear(scheduleItem.getdate());
+        int year = scheduleItem.getStartTime().getYear();
         Date startTime = scheduleItem.getStartTime();
 
         LocalDateTime start = LocalDateTime.of(startTime.getYear(),startTime.getMonth(),startTime.getDayOfMonth(),startTime.getHour(),startTime.getMinute());

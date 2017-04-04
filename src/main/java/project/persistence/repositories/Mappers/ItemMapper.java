@@ -34,8 +34,6 @@ public class ItemMapper implements RowMapper {
         item.setTitle(rs.getString("title"));
         item.setWeekNo(rs.getInt("weekNo"));
         item.setYear(rs.getInt("year"));
-        // Generate timespan, weekday, startstring and endstring based on other fields
-        item.calculateTime();
         return item;
     }
 }

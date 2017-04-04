@@ -20,9 +20,6 @@ public class ScheduleItem {
     private String description;
     private List<String> filters = new ArrayList<>();
     private String filter;
-    private String date;
-    private int timeSpan;
-    private int weekDay;
 
     public String getTitle(){return title;}
     public void setTitle(String title){this.title = title;}
@@ -59,9 +56,6 @@ public class ScheduleItem {
     public String getDescription(){return description;}
     public void setDescription(String description ){this.description = description;}
 
-    public String getdate(){return date;}
-    public void setDate(String date){this.date = date;}
-
     public String getFilter(){return filter;}
     public void setFilter(String filter ){this.filter= filter;}
 
@@ -70,14 +64,5 @@ public class ScheduleItem {
     public void addFilter(String filter){filters.add(filter);}
     public void removeFilter(String filter){filters.remove(filter);}
 
-    // Calculates the timespan for this item
-    public void calculateTime(){
-        int hours =endTime.getHour() -startTime.getHour();
-        int minutes = endTime.getMinute() - startTime.getMinute();
-
-        int finalMin = hours*60 + minutes;
-        int timespan = finalMin/10;
-        this.timeSpan = timespan;
-    }
 
 }
