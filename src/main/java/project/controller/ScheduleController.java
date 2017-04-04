@@ -90,6 +90,8 @@ public class ScheduleController {
         LocalDateTime start = LocalDateTime.of(startTime.getYear(),startTime.getMonth(),startTime.getDayOfMonth(),startTime.getHour(),startTime.getMinute());
         int weekNo = scheduleService.findWeekNo(start);
 
+        System.out.println("dagur: "+scheduleItem.getStartTime().getDayOfMonth()+" mánuður: "+scheduleItem.getStartTime().getMonth());
+
         // Create the new item
         scheduleService.createItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
