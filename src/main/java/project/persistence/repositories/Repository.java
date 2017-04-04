@@ -223,8 +223,6 @@ public class Repository implements RepositoryInterface {
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
-        System.out.println("dagur "+startTime.getDayOfMonth()+" mánuður "+startTime.getMonth());
-        System.out.println("timestamp: "+ Timestamp.valueOf(startTime));
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
         /* Find newly inserted item's id. Causes an error when user accidentally resends info in http request (so two items exist with same info)

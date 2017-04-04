@@ -79,6 +79,9 @@ public class ScheduleService {
     public void createItem(String title, int userId, Date startTime, Date endTime,
                                    List<String> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, String filter){
+
+        System.out.println("dagur: "+startTime.getDayOfMonth()+" mánuður: "+startTime.getMonth());
+        
         // Create LocalDateTime variales to insert into database correctly
         LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
         LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
