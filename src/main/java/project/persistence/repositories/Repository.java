@@ -1,6 +1,7 @@
 package project.persistence.repositories;
 
 import org.springframework.cglib.core.Local;
+import project.persistence.entities.Date;
 import project.persistence.entities.Group;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;

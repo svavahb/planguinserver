@@ -1,6 +1,8 @@
 package project.service;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
+import project.persistence.entities.Date;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
@@ -40,10 +42,15 @@ public class ScheduleService {
     }
 
     // Edit schedule item (never used in this version)
-    public ScheduleItem editScheduleItem(int itemId, String title, int userId, LocalDateTime startTime,
-                                                LocalDateTime endTime, int weekNo, int year, String location, String color,
+    public ScheduleItem editScheduleItem(int itemId, String title, int userId, Date startTime,
+                                                Date endTime, int weekNo, int year, String location, String color,
                                          String description, List<String> taggedUsers, List<String> filters){
-        repository.editItem(itemId, title, userId, startTime, endTime, weekNo, year, location, color, description,
+
+        // Create LocalDateTime variales to insert into database correctly
+        LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
+        LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
+
+        repository.editItem(itemId, title, userId, start, end, weekNo, year, location, color, description,
                 taggedUsers, filters);
         ScheduleItem itemEdit = new ScheduleItem();
         itemEdit.setId(itemId);
@@ -69,10 +76,14 @@ public class ScheduleService {
     }
 
     // Creates a schedule item
-    public ScheduleItem createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
+    public ScheduleItem createItem(String title, int userId, Date startTime, Date endTime,
                                    List<String> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, String filter){
-        int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);
+        // Create LocalDateTime variales to insert into database correctly
+        LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
+        LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
+
+        int id = repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
         ScheduleItem item = new ScheduleItem();
         item.setId(id);
         item.setTitle(title);
@@ -182,33 +193,6 @@ public class ScheduleService {
         else return check;
     }
 
-    // Used to check whether a new item collides with another item, before insertion of new item
-    public boolean compareTime(LocalDateTime start, LocalDateTime end, String username){
-        // Get all info needed about logged in user
-        User tmpUser = searchService.findByName(username);
-        int userid = tmpUser.getUserId();
-        int yearNow = LocalDateTime.now().getYear();
-        int weekNow = findWeekNo(LocalDateTime.now());
-
-        boolean returnvalue = true;
-
-        List<ScheduleItem> scheduleItemList = scheduleItems(userid,weekNow,yearNow);
-
-        for (ScheduleItem scheduleitem: scheduleItemList) {
-            //2+4 (if new item starts in middle og of old item or new item all inside an old item)
-            if (scheduleitem.getStartTime().isBefore(start) &&  scheduleitem.getEndTime().isAfter(start)) returnvalue = false;
-            //1 (if new item ends in te middle og old item)
-            if (scheduleitem.getStartTime().isBefore(end) &&  scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
-            //5 ( if new item overlaps old item entirely, starts before old item an ends after old item.
-            if (scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;
-            //3+6+7 ( if new item is either excactly like other item or  new item overlaps whole item
-            if (scheduleitem.getStartTime().isEqual(start) || scheduleitem.getEndTime().isEqual(end)) returnvalue= false;
-
-            //Item starts at same time another ends, or vice versa (which is okay)
-            if (scheduleitem.getStartTime().isEqual(end) || scheduleitem.getEndTime().isEqual(start)) returnvalue = true;
-        }
-        return returnvalue;
-    }
 
     // Delete a friendship between user1 and user2
     public void deleteFriendship(int userid1, int userid2) {

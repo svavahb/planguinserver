@@ -10,20 +10,17 @@ public class ScheduleItem {
     private String title;
     private int id;
     private int userId;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private List<String> taggedUsers = new ArrayList<>();  // Never used in this version
+    private Date startTime;
+    private Date endTime;
+    private List<String> taggedUsers = new ArrayList<>();
     private int weekNo;
     private int year;
     private String location;
     private String color;
     private String description;
-    private List<String> filters = new ArrayList<>();  // Never used in this version
+    private List<String> filters = new ArrayList<>();
     private String filter;
     private String date;
-    // These are used for ease of showing schedule in view:
-    private String startstring;
-    private String endstring;
     private int timeSpan;
     private int weekDay;
 
@@ -36,11 +33,11 @@ public class ScheduleItem {
     public int getUserId(){return userId;}
     public void setUserId(int userId){this.userId = userId;}
 
-    public LocalDateTime getStartTime(){return startTime;}
-    public void setStartTime(LocalDateTime startTime){this.startTime = startTime;}
+    public Date getStartTime(){return startTime;}
+    public void setStartTime(Date startTime){this.startTime = startTime;}
 
-    public LocalDateTime getEndTime(){return endTime;}
-    public void setEndTime(LocalDateTime endTime){this.endTime = endTime;}
+    public Date getEndTime(){return endTime;}
+    public void setEndTime(Date endTime){this.endTime = endTime;}
 
     public void setTaggedUsers(List<String> taggedUsers){this.taggedUsers = taggedUsers;}
     public List<String> getTaggedUsers(){return taggedUsers;}
@@ -65,31 +62,13 @@ public class ScheduleItem {
     public String getdate(){return date;}
     public void setDate(String date){this.date = date;}
 
-    public String getStartstring(){return startstring;}
-    public void setStartstring(String startstring ){this.startstring= startstring;}
-
-    public String getEndstring(){return endstring;}
-    public void setEndstring(String endstring ){this.endstring = endstring;}
-
-    public int getTimeSpan(){return timeSpan;}
-    public void setTimeSpan(int timeSpan){this.timeSpan = timeSpan;}
-
-    public int getWeekDay(){return weekDay;}
-    public void setWeekDay(int weekDay){this.weekDay = weekDay;}
-
     public String getFilter(){return filter;}
     public void setFilter(String filter ){this.filter= filter;}
-
 
     public void setFilters(List<String> filters){this.filters = filters;}
     public List<String> getFilters(){return filters;}
     public void addFilter(String filter){filters.add(filter);}
     public void removeFilter(String filter){filters.remove(filter);}
-
-    public void changeTime(LocalDateTime start, LocalDateTime end){
-        startTime = start;
-        endTime = end;
-    }
 
     // Calculates the timespan for this item
     public void calculateTime(){
@@ -99,12 +78,6 @@ public class ScheduleItem {
         int finalMin = hours*60 + minutes;
         int timespan = finalMin/10;
         this.timeSpan = timespan;
-    }
-
-    // Finds the number of the item's weekday. 0 = Monday, 7 = Sunday
-    public void findWeekDay(){
-        int weekday = startTime.getDayOfWeek().getValue();
-        this.weekDay = weekday-1;
     }
 
 }

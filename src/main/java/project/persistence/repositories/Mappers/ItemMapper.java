@@ -2,6 +2,9 @@ package project.persistence.repositories.Mappers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+
+import project.persistence.entities.Date;
 import project.persistence.entities.ScheduleItem;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -17,17 +20,22 @@ public class ItemMapper implements RowMapper {
         item.setUserId(rs.getInt("userid"));
         item.setColor(rs.getString("color"));
         item.setDescription(rs.getString("description"));
-        item.setEndTime(rs.getTimestamp("endTime").toLocalDateTime());
-        item.setStartTime(rs.getTimestamp("startTime").toLocalDateTime());
+        // parse start time
+        LocalDateTime start = rs.getTimestamp("startTime").toLocalDateTime();
+        Date startTime = new Date(start.getYear(), start.getMonthValue(), start.getDayOfMonth(), start.getHour(), start.getMinute());
+        // parse end time
+        LocalDateTime end = rs.getTimestamp("endTime").toLocalDateTime();
+        Date endTime = new Date(end.getYear(),end.getMonthValue(),end.getDayOfMonth(),end.getHour(),end.getMinute());
+
+        item.setEndTime(endTime);
+        item.setStartTime(startTime);
+
         item.setLocation(rs.getString("location"));
         item.setTitle(rs.getString("title"));
         item.setWeekNo(rs.getInt("weekNo"));
         item.setYear(rs.getInt("year"));
         // Generate timespan, weekday, startstring and endstring based on other fields
         item.calculateTime();
-        item.findWeekDay();
-        item.setStartstring(item.getStartTime().toString().substring(11));
-        item.setEndstring(item.getEndTime().toString().substring(11));
         return item;
     }
 }
