@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import project.persistence.entities.Date;
 import project.persistence.entities.Group;
 import project.persistence.entities.User;
 import project.service.ScheduleService;
@@ -66,10 +67,11 @@ public class GroupController {
     }
 
     // Method for deleting a group
-    @RequestMapping(value="/deleteGroup/{grpId}")
-    public ResponseEntity deleteGroup(@PathVariable int grpId) {
+    @RequestMapping(value="/deleteGroup/{grpName}")
+    public Date deleteGroup(@PathVariable int grpName) {
+        int grpId = searchService.findGroup(grpName).getGrpId();
         scheduleService.deleteGroup(grpId);
-        return new ResponseEntity(HttpStatus.OK);
+        return new Date();
     }
 
 }
