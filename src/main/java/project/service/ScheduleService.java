@@ -100,11 +100,11 @@ public class ScheduleService {
         LocalDateTime start1 = start.plusDays(7);
         LocalDateTime end1 = end.plusDays(7);
         repository.createItem(title, userId, start1, end1, weekNo, year, location, color, description, filters);
-        LocalDateTime start2 = start.plusDays(7);
-        LocalDateTime end2 = end.plusDays(7);
+        LocalDateTime start2 = start1.plusDays(7);
+        LocalDateTime end2 = end1.plusDays(7);
         repository.createItem(title, userId, start2, end2, weekNo, year, location, color, description, filters);
-        LocalDateTime start3 = start.plusDays(7);
-        LocalDateTime end3 = end.plusDays(7);
+        LocalDateTime start3 = start2.plusDays(7);
+        LocalDateTime end3 = end2.plusDays(7);
         repository.createItem(title, userId, start3, end3, weekNo, year, location, color, description, filters);
 
     }
