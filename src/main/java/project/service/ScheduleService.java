@@ -87,6 +87,28 @@ public class ScheduleService {
         repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
     }
 
+    // Creates a schedule item
+    public void createMultipleItem(String title, int userId, Date startTime, Date endTime,
+                           List<String> taggedUsers, int weekNo, int year, String location, int color,
+                           String description, String filter){
+
+        // Create LocalDateTime variales to insert into database correctly
+        LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
+        LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
+
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        start.plusDays(7);
+        end.plusDays(7);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        start.plusDays(7);
+        end.plusDays(7);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        start.plusDays(7);
+        end.plusDays(7);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+
+    }
+
     // Find a user by username
     public User findUserByUsername(String username){
         User finduser = repository.findUsersByName(username);

@@ -101,6 +101,29 @@ public class ScheduleController {
         return new User();
     }
 
+    // Post method for inserting an item into the logged in user's schedule
+    @RequestMapping(value = "/createMultipleItems/{loggedInUser}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    //@PostMapping(value = "/home")
+    public User insertMultipleItemPost(@RequestBody ScheduleItem scheduleItem, @PathVariable String loggedInUser) {
+        // Get logged in user and info
+        User tmpUser= scheduleService.findUserByUsername(loggedInUser);
+        int userId = tmpUser.getUserId();
+
+        // Find week no and year of the new item
+        int year = scheduleItem.getStartTime().getYear();
+        Date startTime = scheduleItem.getStartTime();
+
+        LocalDateTime start = LocalDateTime.of(startTime.getYear(),startTime.getMonth(),startTime.getDayOfMonth(),startTime.getHour(),startTime.getMinute());
+        int weekNo = scheduleService.findWeekNo(start);
+
+        // Create the new item
+        scheduleService.createMultipleItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
+                scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
+                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
+
+        return new User();
+    }
+
     // Get base home page
     @RequestMapping(value = "/home/{month}/{year}", method = RequestMethod.GET)
     public Schedule scheduleGet(@RequestParam String loggedInUser, @PathVariable int month, @PathVariable int year) {
