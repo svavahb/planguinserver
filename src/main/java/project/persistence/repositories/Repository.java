@@ -242,7 +242,7 @@ public class Repository implements RepositoryInterface {
     // Edits item in database (never used in this version)
     public void editItem(int itemId, String title, int userId, LocalDateTime startTime, LocalDateTime endTime, int weekNo, int year,
                          String location, int color, String description, List<String> taggedUsers, List<String> filters){
-        String SQL="update \"scheduleitem\" set title=?, userid=?, \"startTime\"=?, \"endTime\"=?, \"weekNo\"=?, year=?, location=?, " +
+        String SQL="update \"scheduleItem\" set title=?, userid=?, \"startTime\"=?, \"endTime\"=?, \"weekNo\"=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description, itemId);
     }
