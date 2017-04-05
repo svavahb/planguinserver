@@ -43,7 +43,7 @@ public class ScheduleService {
 
     // Edit schedule item (never used in this version)
     public ScheduleItem editScheduleItem(int itemId, String title, int userId, Date startTime,
-                                                Date endTime, int weekNo, int year, String location, String color,
+                                                Date endTime, int weekNo, int year, String location, int color,
                                          String description, List<String> taggedUsers, List<String> filters){
 
         // Create LocalDateTime variales to insert into database correctly
@@ -77,7 +77,7 @@ public class ScheduleService {
 
     // Creates a schedule item
     public void createItem(String title, int userId, Date startTime, Date endTime,
-                                   List<String> taggedUsers, int weekNo, int year, String location,String color,
+                                   List<String> taggedUsers, int weekNo, int year, String location, int color,
                                    String description, String filter){
 
         // Create LocalDateTime variales to insert into database correctly

@@ -16,7 +16,7 @@ public class ScheduleItem {
     private int weekNo;
     private int year;
     private String location;
-    private String color;
+    private int color;
     private String description;
     private List<String> filters = new ArrayList<>();
     private String filter;
@@ -50,8 +50,8 @@ public class ScheduleItem {
     public String getLocation(){return location;}
     public void setLocation(String location ){this.location = location;}
 
-    public String getColor(){return color;}
-    public void setColor(String color ){this.color = color;}
+    public int getColor(){return color;}
+    public void setColor(int color ){this.color = color;}
 
     public String getDescription(){return description;}
     public void setDescription(String description ){this.description = description;}

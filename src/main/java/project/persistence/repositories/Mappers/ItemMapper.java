@@ -18,7 +18,7 @@ public class ItemMapper implements RowMapper {
         ScheduleItem item = new ScheduleItem();
         item.setId((int)rs.getLong("id"));
         item.setUserId(rs.getInt("userid"));
-        item.setColor(rs.getString("color"));
+        item.setColor(rs.getInt("color"));
         item.setDescription(rs.getString("description"));
         // parse start time
         LocalDateTime start = rs.getTimestamp("startTime").toLocalDateTime();
