@@ -49,12 +49,12 @@ public class SearchService {
     // Check if user1 and user2 are friends
     public boolean checkIfFriend(User user1, User user2) {
         for (String u : user1.getFriends()) {
-            if (u == user2.getUsername()) {
+            if (u.equals(user2.getUsername())) {
                 return true;
             }
         }
         for (String u : user2.getFriends()) {
-            if (u == user1.getUsername()) {
+            if (u.equals(user1.getUsername())) {
                 return true;
             }
         }
