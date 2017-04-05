@@ -68,7 +68,7 @@ public class GroupController {
 
     // Method for deleting a group
     @RequestMapping(value="/deleteGroup/{grpName}")
-    public Date deleteGroup(@PathVariable int grpName) {
+    public Date deleteGroup(@PathVariable String grpName) {
         int grpId = searchService.findGroup(grpName).getGrpId();
         scheduleService.deleteGroup(grpId);
         return new Date();
