@@ -23,7 +23,7 @@ public interface RepositoryInterface {
     void editUser(int userId, String username, String password, String photo, String school);
 
     void createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
-                   int weekNo, int year, String location, int color, String description);
+                   int weekNo, int year, String location, int color, String description, List<String> filters);
 
     void deleteItem(int itemId);
 

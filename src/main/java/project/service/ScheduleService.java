@@ -78,34 +78,34 @@ public class ScheduleService {
     // Creates a schedule item
     public void createItem(String title, int userId, Date startTime, Date endTime,
                                    List<String> taggedUsers, int weekNo, int year, String location, int color,
-                                   String description, String filter){
+                                   String description, List<String> filters){
 
         // Create LocalDateTime variales to insert into database correctly
         LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
         LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
 
-        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description, filters);
     }
 
     // Creates a schedule item
     public void createMultipleItem(String title, int userId, Date startTime, Date endTime,
                            List<String> taggedUsers, int weekNo, int year, String location, int color,
-                           String description, String filter){
+                           String description, List<String> filters){
 
         // Create LocalDateTime variales to insert into database correctly
         LocalDateTime start = LocalDateTime.of(startTime.getYear(), startTime.getMonth(), startTime.getDayOfMonth(), startTime.getHour(), startTime.getMinute());
         LocalDateTime end = LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour(), endTime.getMinute());
 
-        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description, filters);
         start.plusDays(7);
         end.plusDays(7);
-        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description, filters);
         start.plusDays(7);
         end.plusDays(7);
-        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description, filters);
         start.plusDays(7);
         end.plusDays(7);
-        repository.createItem(title, userId, start, end, weekNo, year, location, color, description);
+        repository.createItem(title, userId, start, end, weekNo, year, location, color, description, filters);
 
     }
 
@@ -198,6 +198,10 @@ public class ScheduleService {
     public String checkifZero(String check) {
         if (check.substring(0,1) == "0") return check.substring(1);
         else return check;
+    }
+
+    public List<String> getFilters(int userid) {
+        return repository.getFilters(userid);
     }
 
 

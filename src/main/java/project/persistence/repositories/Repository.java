@@ -222,10 +222,16 @@ public class Repository implements RepositoryInterface {
 
     // Insert item into database
     public void createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
-                   int weekNo, int year, String location, int color, String description){
+                   int weekNo, int year, String location, int color, String description, List<String> filters){
         String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
-                "values (?,?,?,?,?,?,?,?,?);";
-        jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
+                "values (?,?,?,?,?,?,?,?,?) returning id;";
+        int id = jdbcTemplate.queryForInt(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
+
+        SQL="insert into filters (itemid, userid, name) values (?,?,?)";
+
+        for(String f : filters) {
+            jdbcTemplate.update(SQL, id, userId, f);
+        }
 
     }
 
@@ -245,6 +251,13 @@ public class Repository implements RepositoryInterface {
         String SQL="update \"scheduleItem\" set title=?, userid=?, \"startTime\"=?, \"endTime\"=?, \"weekNo\"=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description, itemId);
+    }
+
+    public List<String> getFilters(int userid) {
+        String SQL = "select name from filters where userid=?";
+        List<String> filters = jdbcTemplate.queryForList(SQL, new Object[]{userid}, String.class);
+
+        return filters;
     }
 
     // Adds filter to an item

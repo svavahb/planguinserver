@@ -96,7 +96,7 @@ public class ScheduleController {
         // Create the new item
         scheduleService.createItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
-                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
+                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
         return new User();
     }
@@ -119,7 +119,7 @@ public class ScheduleController {
         // Create the new item
         scheduleService.createMultipleItem(scheduleItem.getTitle(), userId, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
-                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
+                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
         return new User();
     }
@@ -144,8 +144,11 @@ public class ScheduleController {
         return scheduleByFilters;
     }
 
-    @RequestMapping(value = "/getFilters")
-    public List<String> getFilters() {
-        return new ArrayList<String>();
+    @RequestMapping(value = "/getFilters/{loggedInUser}")
+    public List<String> getFilters(@PathVariable String loggedInUser) {
+        User user = scheduleService.findUserByUsername(loggedInUser);
+
+        List<String> filters = scheduleService.getFilters(user.getUserId());
+        return filters;
     }
 }
