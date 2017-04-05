@@ -144,4 +144,8 @@ public class ScheduleController {
         return scheduleByFilters;
     }
 
+    @RequestMapping(value = "/getFilters")
+    public List<String> getFilters() {
+        return new ArrayList<String>();
+    }
 }
