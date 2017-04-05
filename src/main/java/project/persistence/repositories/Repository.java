@@ -140,8 +140,10 @@ public class Repository implements RepositoryInterface {
 
     // Find all items by userid, week no and year
     public List<ScheduleItem> findItemsByUserWeek(int userId, int month, int year){
-        String SQL = "select * from \"scheduleItem\" where userid = ? and extract(month from \"startTime\") = ? and year=?;";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, month, year}, new ItemMapper());
+        String SQL = "select * from \"scheduleItem\" where userid = ? and " +
+                "(extract(month from \"startTime\") = ? or extract(month from \"startTime\") = ? or extract(month from \"startTime\") = ?) " +
+                "and year=?;";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, month, month-1, month+1, year}, new ItemMapper());
 
         // Find all filters associated with each item
         SQL="select name from Filters where itemId=?";
