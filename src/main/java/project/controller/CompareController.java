@@ -41,10 +41,10 @@ public class CompareController {
 
         // Find current week no and year
         int yearNow = LocalDateTime.now().getYear();
-        int weekNow = compareService.findWeekNo(LocalDateTime.now());
+        int monthNow = LocalDateTime.now().getMonthValue();
 
         // Get comparison list of sheduleItems
-        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), weekNow, yearNow);
+        List<ScheduleItem> scheduleItems = compareService.compareSchedules(user.getUserId(), friend.getUserId(), monthNow, yearNow);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
         schedule.setItems(scheduleItems);
@@ -64,10 +64,10 @@ public class CompareController {
 
         // FInd current week no and year
         int yearNow = LocalDateTime.now().getYear();
-        int weekNow = compareService.findWeekNo(LocalDateTime.now());
+        int monthNow = LocalDateTime.now().getMonthValue();
 
         // Get comparison list of scheduleItems
-        List<ScheduleItem> groupSchedule = compareService.compareScheduleGroup(grpId, weekNow, yearNow);
+        List<ScheduleItem> groupSchedule = compareService.compareScheduleGroup(grpId, monthNow, yearNow);
         Schedule schedule = new Schedule();
         schedule.setUser(user);
         schedule.setItems(groupSchedule);
