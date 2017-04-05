@@ -58,7 +58,7 @@ public class ScheduleController {
 
     // Post method for editing items, not fully implemented
     @RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
-    public ResponseEntity editSchedulePost(@RequestBody ScheduleItem scheduleItem, @PathVariable int itemId){
+    public Date editSchedulePost(@RequestBody ScheduleItem scheduleItem, @PathVariable int itemId){
 
         scheduleService.editScheduleItem(itemId, scheduleItem.getTitle(),
                 scheduleItem.getUserId(), scheduleItem.getStartTime(), scheduleItem.getEndTime(),
@@ -66,14 +66,14 @@ public class ScheduleController {
                 scheduleItem.getColor(), scheduleItem.getDescription(), scheduleItem.getTaggedUsers(),
                 scheduleItem.getFilters());
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new Date();
     }
 
     // Method for deleting schedule items
     @RequestMapping(value="/deleteItem")
-    public ResponseEntity deleteItemPost(@RequestParam("itemId") int itemId) {
+    public Date deleteItemPost(@RequestParam("itemId") int itemId) {
         scheduleService.removeItem(itemId);
-        return new ResponseEntity(HttpStatus.OK);
+        return new Date();
     }
 
     // Post method for inserting an item into the logged in user's schedule
