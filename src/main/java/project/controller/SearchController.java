@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project.persistence.entities.Date;
 import project.persistence.entities.Group;
 import project.persistence.entities.User;
 import project.service.SearchService;
@@ -102,7 +103,7 @@ public class SearchController {
 
     // Add a user to a certain group
     @RequestMapping(value="/addToGroup/{grpName}/{username}")
-    public ResponseEntity addToGroup(@PathVariable String grpName, @PathVariable String username) {
+    public Date addToGroup(@PathVariable String grpName, @PathVariable String username) {
         // Find the group and the user
         Group group = searchService.findGroup(grpName);
         User user = searchService.findByName(username);
@@ -111,6 +112,6 @@ public class SearchController {
         searchService.addGroupMemeber(group.getGrpId(), user.getUserId());
         group.addMember(user.getUsername());
         
-        return new ResponseEntity(HttpStatus.OK);
+        return new Date();
     }
 }
